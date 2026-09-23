@@ -36,11 +36,13 @@ func generate_cards():
 	for animal in ['bird', 'bunny', 'fish']:
 		for pattern in ['hex', 'maze', 'waves']:
 			for colour in ['red', 'green', 'blue']:
-				cards.append({
-					'animal': animal,
-					'pattern': pattern,
-					'colour': colour
-				})
+				for number in ['one', 'two', 'three']:
+					cards.append({
+						'animal': animal,
+						'pattern': pattern,
+						'colour': colour,
+						'number': number
+					})
 	cards.shuffle()
 	return cards
 

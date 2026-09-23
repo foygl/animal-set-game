@@ -3,6 +3,7 @@ extends TextureButton
 var animal
 var pattern
 var colour
+var number
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,16 +18,18 @@ func update_card(card: Dictionary):
 	animal = card.animal
 	pattern = card.pattern
 	colour = card.colour
+	number = card.number
 	
 	var img = Image.new()
-	img.load("res://assets/%s_%s_%s.png" % [animal, pattern, colour])
+	img.load("res://assets/%s_%s_%s_%s.png" % [animal, pattern, colour, number])
 	texture_normal = ImageTexture.create_from_image(img)
 
 func get_card() -> Dictionary:
 	return {
 		'animal': animal,
 		'pattern': pattern,
-		'colour': colour
+		'colour': colour,
+		'number': number
 	}
 
 func _on_toggled(toggled_on: bool) -> void:
