@@ -15,14 +15,24 @@ func _process(delta: float) -> void:
 	pass
 
 func update_card(card: Dictionary):
-	animal = card.animal
-	pattern = card.pattern
-	colour = card.colour
-	number = card.number
-	
-	var img = Image.new()
-	img.load("res://assets/%s_%s_%s_%s.png" % [animal, pattern, colour, number])
-	texture_normal = ImageTexture.create_from_image(img)
+	if card == null:
+		animal = null
+		pattern = null
+		colour = null
+		number = null
+		
+		visible = false
+	else:
+		animal = card.animal
+		pattern = card.pattern
+		colour = card.colour
+		number = card.number
+		
+		visible = true
+		
+		var img = Image.new()
+		img.load("res://assets/%s_%s_%s_%s.png" % [animal, pattern, colour, number])
+		texture_normal = ImageTexture.create_from_image(img)
 
 func get_card() -> Dictionary:
 	return {

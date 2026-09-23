@@ -24,7 +24,6 @@ func _ready() -> void:
 	]
 
 	for card in current_cards:
-		print_debug(card)
 		card.update_card(cards.pop_back())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,3 +56,45 @@ func _on_card_toggled(toggled_on: bool, source: BaseButton) -> void:
 			selected_cards.append(source)
 	else:
 		selected_cards.erase(source)
+	
+	if selected_cards.size() == 3:
+		if check_cards():
+			for card in selected_cards:
+				card.update_card(cards.pop_back())
+			selected_cards.clear()
+
+func check_cards() -> bool:
+	# TODO: Get the logic right here
+	#var animal_matches = {
+		#selected_cards[0].get_card().animal: null,
+		#selected_cards[1].get_card().animal: null,
+		#selected_cards[2].get_card().animal: null,
+	#}.size() == 1
+	#var pattern_matches = {
+		#selected_cards[0].get_card().pattern: null,
+		#selected_cards[1].get_card().pattern: null,
+		#selected_cards[2].get_card().pattern: null,
+	#}.size() == 1
+	#var colour_matches = {
+		#selected_cards[0].get_card().colour: null,
+		#selected_cards[1].get_card().colour: null,
+		#selected_cards[2].get_card().colour: null,
+	#}.size() == 1
+	#var number_matches = {
+		#selected_cards[0].get_card().number: null,
+		#selected_cards[1].get_card().number: null,
+		#selected_cards[2].get_card().number: null,
+	#}.size() == 1
+	#
+	#var number_of_matches = 0
+	#if animal_matches:
+		#number_of_matches += 1
+	#if pattern_matches:
+		#number_of_matches += 1
+	#if colour_matches:
+		#number_of_matches += 1
+	#if number_matches:
+		#number_of_matches += 1
+#
+	## The must either have exactly one thing in common, or exactly one thing different
+	#return number_of_matches == 1 || number_of_matches == 3
