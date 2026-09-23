@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dqd8qxcvlwfe2"]
+
+[ext_resource type="Texture2D" uid="uid://batcimqhomu18" path="res://assets/bird_hex_blue.png" id="1_kikvd"]
+
+[node name="Card" type="TextureButton" unique_id=413010928]
+offset_left = 104.0
+offset_top = 93.0
+offset_right = 254.0
+offset_bottom = 293.0
+texture_normal = ExtResource("1_kikvd")
+stretch_mode = 4

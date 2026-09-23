@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://lnk7x4yhccsm"]
+
+[ext_resource type="PackedScene" uid="uid://dqd8qxcvlwfe2" path="res://card.tscn" id="1_s483p"]
+
+[node name="Cards" type="Node" unique_id=1754319999]
+
+[node name="Card01" parent="." unique_id=413010928 instance=ExtResource("1_s483p")]
+offset_left = 98.0
+offset_top = 42.0
+offset_right = 248.0
+offset_bottom = 242.0
+
+[node name="Card02" parent="." unique_id=697053543 instance=ExtResource("1_s483p")]
+offset_left = 318.0
+offset_top = 42.0
+offset_right = 468.0
+offset_bottom = 242.0
+
+[node name="Card03" parent="." unique_id=1629796679 instance=ExtResource("1_s483p")]
+offset_left = 535.0
+offset_top = 42.0
+offset_right = 685.0
+offset_bottom = 242.0
+
+[node name="Card04" parent="." unique_id=876379233 instance=ExtResource("1_s483p")]
+offset_left = 98.0
+offset_top = 286.0
+offset_right = 248.0
+offset_bottom = 486.0
+
+[node name="Card05" parent="." unique_id=24028326 instance=ExtResource("1_s483p")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -226.0
+offset_right = 75.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Card06" parent="." unique_id=1896265843 instance=ExtResource("1_s483p")]
+offset_left = 535.0
+offset_top = 286.0
+offset_right = 685.0
+offset_bottom = 486.0
+
+[node name="Card07" parent="." unique_id=1846010554 instance=ExtResource("1_s483p")]
+offset_left = 98.0
+offset_top = 530.0
+offset_right = 248.0
+offset_bottom = 730.0
+
+[node name="Card08" parent="." unique_id=916720218 instance=ExtResource("1_s483p")]
+offset_left = 318.0
+offset_top = 530.0
+offset_right = 468.0
+offset_bottom = 730.0
+
+[node name="Card09" parent="." unique_id=989406578 instance=ExtResource("1_s483p")]
+offset_left = 535.0
+offset_top = 530.0
+offset_right = 685.0
+offset_bottom = 730.0
+
+[node name="Card10" parent="." unique_id=255139786 instance=ExtResource("1_s483p")]
+offset_left = 98.0
+offset_top = 774.0
+offset_right = 248.0
+offset_bottom = 974.0
+
+[node name="Card11" parent="." unique_id=1492075652 instance=ExtResource("1_s483p")]
+offset_left = 318.0
+offset_top = 774.0
+offset_right = 468.0
+offset_bottom = 974.0
+
+[node name="Card12" parent="." unique_id=1606846759 instance=ExtResource("1_s483p")]
+offset_left = 535.0
+offset_top = 774.0
+offset_right = 685.0
+offset_bottom = 974.0
