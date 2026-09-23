@@ -19,5 +19,15 @@ func update_card(card: Dictionary):
 	colour = card.colour
 	
 	var img = Image.new()
-	img.load(card.resource)
+	img.load("res://assets/%s_%s_%s.png" % [animal, pattern, colour])
 	texture_normal = ImageTexture.create_from_image(img)
+
+func get_card() -> Dictionary:
+	return {
+		'animal': animal,
+		'pattern': pattern,
+		'colour': colour
+	}
+
+func _on_toggled(toggled_on: bool) -> void:
+	$Selected.visible = toggled_on

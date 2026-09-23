@@ -2,20 +2,30 @@ extends Node
 
 var cards: Array[Dictionary] = generate_cards()
 
+var current_cards: Array[TextureButton]
+
+var selected_cards: Array[TextureButton] = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Card01.update_card(cards.pop_back())
-	$Card02.update_card(cards.pop_back())
-	$Card03.update_card(cards.pop_back())
-	$Card04.update_card(cards.pop_back())
-	$Card05.update_card(cards.pop_back())
-	$Card06.update_card(cards.pop_back())
-	$Card07.update_card(cards.pop_back())
-	$Card08.update_card(cards.pop_back())
-	$Card09.update_card(cards.pop_back())
-	$Card10.update_card(cards.pop_back())
-	$Card11.update_card(cards.pop_back())
-	$Card12.update_card(cards.pop_back())
+	current_cards = [
+		$Card01,
+		$Card02,
+		$Card03,
+		$Card04,
+		$Card05,
+		$Card06,
+		$Card07,
+		$Card08,
+		$Card09,
+		$Card10,
+		$Card11,
+		$Card12
+	]
+
+	for card in current_cards:
+		print_debug(card)
+		card.update_card(cards.pop_back())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -29,8 +39,19 @@ func generate_cards():
 				cards.append({
 					'animal': animal,
 					'pattern': pattern,
-					'colour': colour,
-					'resource': "res://assets/%s_%s_%s.png" % [animal, pattern, colour]
+					'colour': colour
 				})
 	cards.shuffle()
 	return cards
+
+func is_solveable() -> bool:
+	return false
+
+func _on_card_toggled(toggled_on: bool, source: BaseButton) -> void:
+	if toggled_on:
+		if selected_cards.size() >= 3:
+			source.button_pressed = false
+		else:
+			selected_cards.append(source)
+	else:
+		selected_cards.erase(source)

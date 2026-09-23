@@ -8,6 +8,18 @@ offset_left = 104.0
 offset_top = 93.0
 offset_right = 254.0
 offset_bottom = 293.0
+toggle_mode = true
 texture_normal = ExtResource("1_kikvd")
 stretch_mode = 4
 script = ExtResource("2_rjlel")
+
+[node name="Selected" type="Polygon2D" parent="." unique_id=1396655994]
+visible = false
+z_index = -1
+position = Vector2(-9.999995, -10)
+scale = Vector2(1.1333333, 1.0949999)
+color = Color(0.2784314, 0.57254905, 0.29411766, 1)
+polygon = PackedVector2Array(0, 13, 3, 6, 7.6923065, 1.941742, 14, 0, 138, 0, 144, 2, 148.07693, 6.796112, 150, 11, 149.99997, 190.2439, 148.07693, 195.14565, 145.19229, 198.05827, 140.38461, 200.00002, 10, 200, 5, 197, 2, 193, 0, 188)
+uv = PackedVector2Array(0, 13, 3, 6, 7.6923065, 1.941742, 14, 0, 138, 0, 144, 2, 148.07693, 6.796112, 150, 11, 149.99997, 190.2439, 148.07693, 195.14565, 145.19229, 198.05827, 140.38461, 200.00002, 10, 200, 5, 197, 2, 193, 0, 188)
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

@@ -84,3 +84,16 @@ offset_left = 535.0
 offset_top = 774.0
 offset_right = 685.0
 offset_bottom = 974.0
+
+[connection signal="toggled" from="Card01" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card02" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card03" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card04" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card05" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card06" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card07" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card08" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card09" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card10" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card11" to="." method="_on_card_toggled" flags=18]
+[connection signal="toggled" from="Card12" to="." method="_on_card_toggled" flags=18]
