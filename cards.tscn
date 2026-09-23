@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://lnk7x4yhccsm"]
 
+[ext_resource type="Script" uid="uid://dmnavfc4h1gbr" path="res://cards.gd" id="1_hef1n"]
 [ext_resource type="PackedScene" uid="uid://dqd8qxcvlwfe2" path="res://card.tscn" id="1_s483p"]
 
 [node name="Cards" type="Node" unique_id=1754319999]
+script = ExtResource("1_hef1n")
 
 [node name="Card01" parent="." unique_id=413010928 instance=ExtResource("1_s483p")]
 offset_left = 98.0
