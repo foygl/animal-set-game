@@ -15,8 +15,9 @@ func _process(delta: float) -> void:
 	pass
 
 func update_card(card: Dictionary):
-	$Selected.visible = false
+	disabled = true
 	visible = false
+	$Selected.visible = false
 	
 	if card == null:
 		animal = null
@@ -48,4 +49,6 @@ func _on_toggled(toggled_on: bool) -> void:
 
 
 func _on_card_update_timer_timeout() -> void:
+	disabled = false
 	visible = true
+	button_pressed = false
