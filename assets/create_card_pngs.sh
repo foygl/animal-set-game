@@ -9,7 +9,7 @@ blue_colour_code="#2b5fc4"
 
 for animal in bird bunny fish
 do
-  for pattern in hex maze waves
+  for pattern in hex maze waves filled
   do
     for colour in red green blue
     do
