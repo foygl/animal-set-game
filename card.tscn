@@ -22,4 +22,9 @@ color = Color(0.2784314, 0.57254905, 0.29411766, 1)
 polygon = PackedVector2Array(0, 13, 3, 6, 7.6923065, 1.941742, 14, 0, 138, 0, 144, 2, 148.07693, 6.796112, 150, 11, 149.99997, 190.2439, 148.07693, 195.14565, 145.19229, 198.05827, 140.38461, 200.00002, 10, 200, 5, 197, 2, 193, 0, 188)
 uv = PackedVector2Array(0, 13, 3, 6, 7.6923065, 1.941742, 14, 0, 138, 0, 144, 2, 148.07693, 6.796112, 150, 11, 149.99997, 190.2439, 148.07693, 195.14565, 145.19229, 198.05827, 140.38461, 200.00002, 10, 200, 5, 197, 2, 193, 0, 188)
 
+[node name="CardUpdateTimer" type="Timer" parent="." unique_id=1749214306]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="toggled" from="." to="." method="_on_toggled"]
+[connection signal="timeout" from="CardUpdateTimer" to="." method="_on_card_update_timer_timeout"]

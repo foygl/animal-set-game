@@ -15,24 +15,25 @@ func _process(delta: float) -> void:
 	pass
 
 func update_card(card: Dictionary):
+	$Selected.visible = false
+	visible = false
+	
 	if card == null:
 		animal = null
 		pattern = null
 		colour = null
 		number = null
-		
-		visible = false
 	else:
 		animal = card.animal
 		pattern = card.pattern
 		colour = card.colour
 		number = card.number
 		
-		visible = true
-		
 		var img = Image.new()
 		img.load("res://assets/%s_%s_%s_%s.png" % [animal, pattern, colour, number])
 		texture_normal = ImageTexture.create_from_image(img)
+		
+		$CardUpdateTimer.start()
 
 func get_card() -> Dictionary:
 	return {
@@ -44,3 +45,7 @@ func get_card() -> Dictionary:
 
 func _on_toggled(toggled_on: bool) -> void:
 	$Selected.visible = toggled_on
+
+
+func _on_card_update_timer_timeout() -> void:
+	visible = true

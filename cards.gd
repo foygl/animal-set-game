@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 func generate_cards():
 	cards = []
 	for animal in ['bird', 'bunny', 'fish']:
-		for pattern in ['hex', 'maze', 'waves']:
+		for pattern in ['hex', 'waves', 'filled']:
 			for colour in ['red', 'green', 'blue']:
 				for number in ['one', 'two', 'three']:
 					cards.append({
@@ -64,37 +64,29 @@ func _on_card_toggled(toggled_on: bool, source: BaseButton) -> void:
 			selected_cards.clear()
 
 func check_cards() -> bool:
-	# TODO: Get the logic right here
-	#var animal_matches = {
-		#selected_cards[0].get_card().animal: null,
-		#selected_cards[1].get_card().animal: null,
-		#selected_cards[2].get_card().animal: null,
-	#}.size() == 1
-	#var pattern_matches = {
-		#selected_cards[0].get_card().pattern: null,
-		#selected_cards[1].get_card().pattern: null,
-		#selected_cards[2].get_card().pattern: null,
-	#}.size() == 1
-	#var colour_matches = {
-		#selected_cards[0].get_card().colour: null,
-		#selected_cards[1].get_card().colour: null,
-		#selected_cards[2].get_card().colour: null,
-	#}.size() == 1
-	#var number_matches = {
-		#selected_cards[0].get_card().number: null,
-		#selected_cards[1].get_card().number: null,
-		#selected_cards[2].get_card().number: null,
-	#}.size() == 1
-	#
-	#var number_of_matches = 0
-	#if animal_matches:
-		#number_of_matches += 1
-	#if pattern_matches:
-		#number_of_matches += 1
-	#if colour_matches:
-		#number_of_matches += 1
-	#if number_matches:
-		#number_of_matches += 1
-#
-	## The must either have exactly one thing in common, or exactly one thing different
-	#return number_of_matches == 1 || number_of_matches == 3
+	var distinct_animals = {
+		selected_cards[0].get_card().animal: null,
+		selected_cards[1].get_card().animal: null,
+		selected_cards[2].get_card().animal: null,
+	}.size()
+	var distinct_patterns = {
+		selected_cards[0].get_card().pattern: null,
+		selected_cards[1].get_card().pattern: null,
+		selected_cards[2].get_card().pattern: null,
+	}.size()
+	var distinct_colours = {
+		selected_cards[0].get_card().colour: null,
+		selected_cards[1].get_card().colour: null,
+		selected_cards[2].get_card().colour: null,
+	}.size()
+	var distinct_numbers = {
+		selected_cards[0].get_card().number: null,
+		selected_cards[1].get_card().number: null,
+		selected_cards[2].get_card().number: null,
+	}.size()
+	
+	# For each feature, either they should all match, or should all differ
+	return distinct_animals != 2 \
+		&& distinct_patterns != 2 \
+		&& distinct_colours != 2 \
+		&& distinct_numbers != 2
