@@ -12,6 +12,8 @@ signal game_over
 
 signal shuffling
 
+signal cards_remaining(count: int)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_cards = [
@@ -61,6 +63,14 @@ func deal_cards():
 	for update_finished in update_finished_signals:
 		await update_finished
 	ensure_solvable()
+	count_cards()
+
+func count_cards():
+	var card_count = cards.size()
+	for card in current_cards:
+		if !card.get_card().is_empty(): card_count += 1
+	cards_remaining.emit([card_count])
+	print_debug("%d cards remaining" % card_count)
 
 func ensure_solvable():
 	if !is_solveable():
@@ -152,3 +162,4 @@ func _on_card_toggled(toggled_on: bool, source: BaseButton) -> void:
 					card.update_card({})
 			selected_cards.clear()
 			ensure_solvable()
+			count_cards()
