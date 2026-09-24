@@ -6,6 +6,8 @@ var current_cards: Array[TextureButton]
 
 var selected_cards: Array[TextureButton] = []
 
+var dealt = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_cards = [
@@ -23,12 +25,30 @@ func _ready() -> void:
 		$Card12
 	]
 
-	for card in current_cards:
-		card.update_card(cards.pop_back())
+	deal_cards()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if dealt && !is_solveable():
+		propagate_call("set_disabled", [true])
+		for card in current_cards:
+			if !card.get_card().is_empty():
+				cards.append(card.get_card())
+		deal_cards()
+
+func deal_cards():
+	dealt = false
+	cards.shuffle()
+	var update_finished_signals = []
+	for card in current_cards:
+		if !cards.is_empty():
+			card.update_card(cards.pop_back())
+			update_finished_signals.append(card.update_finished)
+		else:
+			card.update_card({})
+	for update_finished in update_finished_signals:
+		await update_finished
+	dealt = true
 
 func generate_cards():
 	cards = []
@@ -42,11 +62,10 @@ func generate_cards():
 						'colour': colour,
 						'number': number
 					})
-	cards.shuffle()
 	return cards
 
 func is_solveable() -> bool:
-	return false
+	return true
 
 func _on_card_toggled(toggled_on: bool, source: BaseButton) -> void:
 	if toggled_on:

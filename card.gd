@@ -1,9 +1,8 @@
 extends TextureButton
 
-var animal
-var pattern
-var colour
-var number
+var card: Dictionary = {}
+
+signal update_finished
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,35 +13,25 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func update_card(card: Dictionary):
+func update_card(c: Dictionary):
 	disabled = true
 	visible = false
 	$Selected.visible = false
 	
-	if card == null:
-		animal = null
-		pattern = null
-		colour = null
-		number = null
+	if c == null || c.is_empty():
+		card = {}
+		update_finished.emit()
 	else:
-		animal = card.animal
-		pattern = card.pattern
-		colour = card.colour
-		number = card.number
+		card = c
 		
 		var img = Image.new()
-		img.load("res://assets/%s_%s_%s_%s.png" % [animal, pattern, colour, number])
+		img.load("res://assets/%s_%s_%s_%s.png" % [c.animal, c.pattern, c.colour, c.number])
 		texture_normal = ImageTexture.create_from_image(img)
 		
 		$CardUpdateTimer.start()
 
 func get_card() -> Dictionary:
-	return {
-		'animal': animal,
-		'pattern': pattern,
-		'colour': colour,
-		'number': number
-	}
+	return card
 
 func _on_toggled(toggled_on: bool) -> void:
 	$Selected.visible = toggled_on
@@ -52,3 +41,4 @@ func _on_card_update_timer_timeout() -> void:
 	disabled = false
 	visible = true
 	button_pressed = false
+	update_finished.emit()
