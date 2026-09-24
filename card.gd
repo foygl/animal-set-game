@@ -24,9 +24,7 @@ func update_card(c: Dictionary):
 	else:
 		card = c
 		
-		var img = Image.new()
-		img.load("res://assets/%s_%s_%s_%s.png" % [c.animal, c.pattern, c.colour, c.number])
-		texture_normal = ImageTexture.create_from_image(img)
+		texture_normal = load("res://assets/%s_%s_%s_%s.png" % [c.animal, c.pattern, c.colour, c.number])
 		
 		$CardUpdateTimer.start()
 
