@@ -1,6 +1,6 @@
 extends Node
 
-var cards: Array[Dictionary] = generate_cards()
+var cards: Array[Dictionary]
 
 var current_cards: Array[TextureButton]
 
@@ -16,6 +16,15 @@ signal cards_remaining(count: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	new_game()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func new_game():
+	cards = generate_cards()
+
 	current_cards = [
 		$Card01,
 		$Card02,
@@ -31,11 +40,19 @@ func _ready() -> void:
 		$Card12
 	]
 
-	deal_cards()
+	# This is every combination of three cards so that we can check if there is a valid solution.
+	# We can just build this once
+	current_card_permutations.clear()
+	for i in range(10):
+		for j in range(i + 1, 11):
+			for k in range(j + 1, 12):
+				current_card_permutations.append(
+					[current_cards[i], current_cards[j], current_cards[k]]
+				)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	selected_cards.clear()
+
+	deal_cards()
 
 func generate_cards():
 	cards = []
@@ -87,14 +104,6 @@ func ensure_solvable():
 
 func is_solveable() -> bool:
 	# Check every permutation of three cards to see if any are a solution
-	# Can build this just once
-	if current_card_permutations.is_empty():
-		for i in range(10):
-			for j in range(i + 1, 11):
-				for k in range(j + 1, 12):
-					current_card_permutations.append(
-						[current_cards[i], current_cards[j], current_cards[k]]
-					)
 	for current_card_permutation in current_card_permutations:
 		if check_cards(
 			current_card_permutation[0].get_card(),
