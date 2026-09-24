@@ -79,7 +79,10 @@ func _on_card_toggled(toggled_on: bool, source: BaseButton) -> void:
 	if selected_cards.size() == 3:
 		if check_cards():
 			for card in selected_cards:
-				card.update_card(cards.pop_back())
+				if !cards.is_empty():
+					card.update_card(cards.pop_back())
+				else:
+					card.update_card({})
 			selected_cards.clear()
 
 func check_cards() -> bool:
