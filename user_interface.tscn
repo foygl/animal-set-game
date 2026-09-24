@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://dyiihdhscbp7a"]
+
+[ext_resource type="Script" uid="uid://cm6tdb3tn7k7x" path="res://user_interface.gd" id="1_i7dvk"]
+[ext_resource type="PackedScene" uid="uid://lnk7x4yhccsm" path="res://cards.tscn" id="1_kxhmu"]
+
+[node name="UserInterface" type="Control" unique_id=1316832191]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i7dvk")
+
+[node name="Cards" parent="." unique_id=1754319999 instance=ExtResource("1_kxhmu")]
+position = Vector2(0, 45)
+
+[node name="ShufflingLabel" type="Label" parent="." unique_id=428312091]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 412.0
+offset_right = 704.0
+offset_bottom = 672.0
+theme_override_colors/font_color = Color(0.18860108, 0.48187995, 0.40216213, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.31764707)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 8
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 20
+theme_override_constants/shadow_outline_size = 12
+theme_override_font_sizes/font_size = 100
+text = "Shuffling"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ShufflingEventTimer" type="Timer" parent="." unique_id=2044686493]
+wait_time = 3.0
+one_shot = true
+
+[node name="GameOverLabel" type="Label" parent="." unique_id=988870666]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 412.0
+offset_right = 704.0
+offset_bottom = 672.0
+theme_override_colors/font_color = Color(0.18860108, 0.48187995, 0.40216213, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.31764707)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 8
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/outline_size = 20
+theme_override_constants/shadow_outline_size = 12
+theme_override_font_sizes/font_size = 100
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="GameOverButton" type="TextureButton" parent="GameOverLabel" unique_id=1236677545]
+layout_mode = 0
+offset_left = 22.0
+offset_top = -305.0
+offset_right = 592.0
+offset_bottom = 586.0
+
+[node name="CardsRemainingLabel" type="Label" parent="." unique_id=972357117]
+layout_mode = 0
+offset_left = 542.0
+offset_top = 45.0
+offset_right = 748.0
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 21
+text = "Cards Remaining: 81"
+vertical_alignment = 1
+
+[connection signal="cards_remaining" from="Cards" to="." method="update_cards_remaining"]
+[connection signal="game_over" from="Cards" to="." method="game_over"]
+[connection signal="shuffling" from="Cards" to="." method="display_shuffling_label"]
+[connection signal="timeout" from="ShufflingEventTimer" to="." method="_on_shuffling_event_timer_timeout"]
+[connection signal="pressed" from="GameOverLabel/GameOverButton" to="." method="new_game"]

@@ -16,7 +16,7 @@ signal cards_remaining(count: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	new_game()
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -86,7 +86,7 @@ func count_cards():
 	var card_count = cards.size()
 	for card in current_cards:
 		if !card.get_card().is_empty(): card_count += 1
-	cards_remaining.emit([card_count])
+	cards_remaining.emit(card_count)
 	print_debug("%d cards remaining" % card_count)
 
 func ensure_solvable():
