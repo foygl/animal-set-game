@@ -4,9 +4,13 @@ var cards: Array[Dictionary] = generate_cards()
 
 var current_cards: Array[TextureButton]
 
+var current_card_permutations: Array[Array] = []
+
 var selected_cards: Array[TextureButton] = []
 
-var dealt = false
+signal game_over
+
+signal shuffling
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,26 +33,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if dealt && !is_solveable():
-		propagate_call("set_disabled", [true])
-		for card in current_cards:
-			if !card.get_card().is_empty():
-				cards.append(card.get_card())
-		deal_cards()
-
-func deal_cards():
-	dealt = false
-	cards.shuffle()
-	var update_finished_signals = []
-	for card in current_cards:
-		if !cards.is_empty():
-			card.update_card(cards.pop_back())
-			update_finished_signals.append(card.update_finished)
-		else:
-			card.update_card({})
-	for update_finished in update_finished_signals:
-		await update_finished
-	dealt = true
+	pass
 
 func generate_cards():
 	cards = []
@@ -64,8 +49,90 @@ func generate_cards():
 					})
 	return cards
 
+func deal_cards():
+	cards.shuffle()
+	var update_finished_signals = []
+	for card in current_cards:
+		if !cards.is_empty():
+			card.update_card(cards.pop_back())
+			update_finished_signals.append(card.update_finished)
+		else:
+			card.update_card({})
+	for update_finished in update_finished_signals:
+		await update_finished
+	ensure_solvable()
+
+func ensure_solvable():
+	if !is_solveable():
+		propagate_call("set_disabled", [true])
+		if cards.is_empty():
+			print_debug("Game over")
+			game_over.emit()
+		else:
+			for card in current_cards:
+				if !card.get_card().is_empty():
+					cards.append(card.get_card())
+			shuffling.emit()
+			deal_cards()
+
 func is_solveable() -> bool:
-	return true
+	# Check every permutation of three cards to see if any are a solution
+	# Can build this just once
+	if current_card_permutations.is_empty():
+		for i in range(10):
+			for j in range(i + 1, 11):
+				for k in range(j + 1, 12):
+					current_card_permutations.append(
+						[current_cards[i], current_cards[j], current_cards[k]]
+					)
+	for current_card_permutation in current_card_permutations:
+		if check_cards(
+			current_card_permutation[0].get_card(),
+			current_card_permutation[1].get_card(),
+			current_card_permutation[2].get_card()
+		   ):
+			print_debug("Solvable: true (%s, %s, %s)" % current_card_permutation)
+			return true
+	print_debug("Solvable: false")
+	return false
+
+func check_cards(card1: Dictionary, card2: Dictionary, card3: Dictionary) -> bool:
+	if card1.is_empty() || card2.is_empty() || card3.is_empty():
+		return false
+	
+	var distinct_animals = {
+		card1.animal: null,
+		card2.animal: null,
+		card3.animal: null,
+	}.size()
+	var distinct_patterns = {
+		card1.pattern: null,
+		card2.pattern: null,
+		card3.pattern: null,
+	}.size()
+	var distinct_colours = {
+		card1.colour: null,
+		card2.colour: null,
+		card3.colour: null,
+	}.size()
+	var distinct_numbers = {
+		card1.number: null,
+		card2.number: null,
+		card3.number: null,
+	}.size()
+	
+	# For each feature, either they should all match, or should all differ
+	return distinct_animals != 2 \
+		&& distinct_patterns != 2 \
+		&& distinct_colours != 2 \
+		&& distinct_numbers != 2
+
+func check_selected_cards() -> bool:
+	return check_cards(
+		selected_cards[0].get_card(),
+		selected_cards[1].get_card(),
+		selected_cards[2].get_card()
+	)
 
 func _on_card_toggled(toggled_on: bool, source: BaseButton) -> void:
 	if toggled_on:
@@ -77,38 +144,11 @@ func _on_card_toggled(toggled_on: bool, source: BaseButton) -> void:
 		selected_cards.erase(source)
 	
 	if selected_cards.size() == 3:
-		if check_cards():
+		if check_selected_cards():
 			for card in selected_cards:
 				if !cards.is_empty():
 					card.update_card(cards.pop_back())
 				else:
 					card.update_card({})
 			selected_cards.clear()
-
-func check_cards() -> bool:
-	var distinct_animals = {
-		selected_cards[0].get_card().animal: null,
-		selected_cards[1].get_card().animal: null,
-		selected_cards[2].get_card().animal: null,
-	}.size()
-	var distinct_patterns = {
-		selected_cards[0].get_card().pattern: null,
-		selected_cards[1].get_card().pattern: null,
-		selected_cards[2].get_card().pattern: null,
-	}.size()
-	var distinct_colours = {
-		selected_cards[0].get_card().colour: null,
-		selected_cards[1].get_card().colour: null,
-		selected_cards[2].get_card().colour: null,
-	}.size()
-	var distinct_numbers = {
-		selected_cards[0].get_card().number: null,
-		selected_cards[1].get_card().number: null,
-		selected_cards[2].get_card().number: null,
-	}.size()
-	
-	# For each feature, either they should all match, or should all differ
-	return distinct_animals != 2 \
-		&& distinct_patterns != 2 \
-		&& distinct_colours != 2 \
-		&& distinct_numbers != 2
+			ensure_solvable()
