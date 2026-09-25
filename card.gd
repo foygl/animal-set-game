@@ -49,3 +49,8 @@ func show_hint() -> void:
 
 func _on_hint_timer_timeout() -> void:
 	$Hint.visible = false
+
+func deselect() -> void:
+	$Selected.visible = false
+	$Hint.visible = false
+	button_pressed = false

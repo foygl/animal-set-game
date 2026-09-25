@@ -181,5 +181,8 @@ func _on_card_toggled(toggled_on: bool, source: BaseButton) -> void:
 			count_cards()
 
 func show_hint() -> void:
+	for card in current_cards:
+		card.deselect()
+	selected_cards.clear()
 	for card in get_first_solution():
 		card.show_hint()
