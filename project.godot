@@ -15,7 +15,7 @@ run/main_scene="uid://dyiihdhscbp7a"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 run/low_processor_mode=true
 boot_splash/image="uid://bqlsjw1co8ptn"
-config/icon="uid://2yrdi15cpjud"
+config/icon="uid://b141hpufms36t"
 
 [display]
 

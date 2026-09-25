@@ -11,7 +11,7 @@ TIMESTAMP=$(date +%s)
 cd exported/web || exit
 
 # Remove the OLD renamed files from last time since Godot won't overwrite them.
-rm #{NAME}-*.*
+rm ${NAME}-*.*
 
 # Rename all files to add the date stamp
 for file in ${NAME}.*
