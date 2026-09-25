@@ -23,4 +23,4 @@ done
 mv ${NAME}-${TIMESTAMP}.html ${NAME}.html
 
 # Replace all instances of ${NAME} with ${NAME}-TIMESTAMP in the ${NAME}.html
-sed -i "" "s/${NAME}/${NAME}-${TIMESTAMP}/g" ${NAME}.html
+sed -i "" "s/${NAME}\./${NAME}-${TIMESTAMP}\./g; s/\"${NAME}\"/\"${NAME}-${TIMESTAMP}\"/g" ${NAME}.html
