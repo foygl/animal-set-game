@@ -13,14 +13,22 @@ grow_vertical = 2
 script = ExtResource("1_i7dvk")
 
 [node name="Cards" parent="." unique_id=1754319999 instance=ExtResource("1_kxhmu")]
-position = Vector2(0, 45)
+position = Vector2(-138.00002, 45)
+scale = Vector2(1.2667949, 1.2667949)
 
 [node name="ShufflingLabel" type="Label" parent="." unique_id=428312091]
-layout_mode = 0
-offset_left = 91.0
-offset_top = 412.0
-offset_right = 704.0
-offset_bottom = 672.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -306.5
+offset_top = -130.0
+offset_right = 306.5
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.18860108, 0.48187995, 0.40216213, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.31764707)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -38,12 +46,28 @@ autowrap_mode = 2
 wait_time = 3.0
 one_shot = true
 
-[node name="GameOverLabel" type="Label" parent="." unique_id=988870666]
+[node name="HintButton" type="Button" parent="." unique_id=75829467]
 layout_mode = 0
-offset_left = 91.0
-offset_top = 412.0
-offset_right = 704.0
-offset_bottom = 672.0
+offset_left = 277.0
+offset_top = 57.0
+offset_right = 438.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 21
+text = "Hint? 3"
+
+[node name="GameOverLabel" type="Label" parent="." unique_id=988870666]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -306.5
+offset_top = -130.0
+offset_right = 306.5
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.18860108, 0.48187995, 0.40216213, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.31764707)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -52,24 +76,49 @@ theme_override_constants/shadow_offset_y = 8
 theme_override_constants/outline_size = 20
 theme_override_constants/shadow_outline_size = 12
 theme_override_font_sizes/font_size = 100
-text = "Game Over"
+text = "Finished!"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="GameOverButton" type="TextureButton" parent="GameOverLabel" unique_id=1236677545]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -640.0
+offset_right = 360.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NewGameButton" type="Button" parent="GameOverLabel" unique_id=673355068]
 layout_mode = 0
-offset_left = 22.0
-offset_top = -305.0
-offset_right = 592.0
-offset_bottom = 586.0
+offset_left = 165.5
+offset_top = 237.0
+offset_right = 446.5
+offset_bottom = 369.0
+theme_override_font_sizes/font_size = 45
+text = "New Game?"
+
+[node name="ExitButton" type="Button" parent="GameOverLabel" unique_id=933805817]
+layout_mode = 0
+offset_left = 165.5
+offset_top = 413.0
+offset_right = 446.5
+offset_bottom = 545.0
+theme_override_font_sizes/font_size = 45
+text = "Exit"
 
 [node name="CardsRemainingLabel" type="Label" parent="." unique_id=972357117]
 layout_mode = 0
-offset_left = 542.0
-offset_top = 45.0
-offset_right = 748.0
-offset_bottom = 85.0
+offset_left = 482.0
+offset_top = 57.0
+offset_right = 688.0
+offset_bottom = 112.0
 theme_override_font_sizes/font_size = 21
 text = "Cards Remaining: 81"
 vertical_alignment = 1
@@ -78,4 +127,7 @@ vertical_alignment = 1
 [connection signal="game_over" from="Cards" to="." method="game_over"]
 [connection signal="shuffling" from="Cards" to="." method="display_shuffling_label"]
 [connection signal="timeout" from="ShufflingEventTimer" to="." method="_on_shuffling_event_timer_timeout"]
+[connection signal="pressed" from="HintButton" to="." method="_on_hint_button_pressed"]
 [connection signal="pressed" from="GameOverLabel/GameOverButton" to="." method="new_game"]
+[connection signal="pressed" from="GameOverLabel/NewGameButton" to="." method="new_game"]
+[connection signal="pressed" from="GameOverLabel/ExitButton" to="." method="exit_game"]

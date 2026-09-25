@@ -14,6 +14,15 @@ texture_normal = ExtResource("1_rjlel")
 stretch_mode = 4
 script = ExtResource("2_rjlel")
 
+[node name="Hint" type="Polygon2D" parent="." unique_id=1420611143]
+visible = false
+z_index = -1
+position = Vector2(-9.999992, -10)
+scale = Vector2(1.1333333, 1.0949999)
+color = Color(0.5952908, 0.31776407, 0.9124989, 1)
+polygon = PackedVector2Array(0, 13, 3, 6, 7.6923065, 1.941742, 14, 0, 138, 0, 144, 2, 148.07693, 6.796112, 150, 11, 149.99997, 190.2439, 148.07693, 195.14565, 145.19229, 198.05827, 140.38461, 200.00002, 10, 200, 5, 197, 2, 193, 0, 188)
+uv = PackedVector2Array(0, 13, 3, 6, 7.6923065, 1.941742, 14, 0, 138, 0, 144, 2, 148.07693, 6.796112, 150, 11, 149.99997, 190.2439, 148.07693, 195.14565, 145.19229, 198.05827, 140.38461, 200.00002, 10, 200, 5, 197, 2, 193, 0, 188)
+
 [node name="Selected" type="Polygon2D" parent="." unique_id=1396655994]
 visible = false
 z_index = -1
@@ -27,5 +36,10 @@ uv = PackedVector2Array(0, 13, 3, 6, 7.6923065, 1.941742, 14, 0, 138, 0, 144, 2,
 wait_time = 0.5
 one_shot = true
 
+[node name="HintTimer" type="Timer" parent="." unique_id=628982185]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="toggled" from="." to="." method="_on_toggled"]
 [connection signal="timeout" from="CardUpdateTimer" to="." method="_on_card_update_timer_timeout"]
+[connection signal="timeout" from="HintTimer" to="." method="_on_hint_timer_timeout"]

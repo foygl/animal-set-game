@@ -103,6 +103,15 @@ func ensure_solvable():
 			deal_cards()
 
 func is_solveable() -> bool:
+	var solution = get_first_solution()
+	if solution.is_empty():
+		print_debug("Solvable: false")
+		return false
+	else:
+		print_debug("Solvable: true (%s, %s, %s)" % solution)
+		return true
+
+func get_first_solution() -> Array[TextureButton]:
 	# Check every permutation of three cards to see if any are a solution
 	for current_card_permutation in current_card_permutations:
 		if check_cards(
@@ -110,10 +119,8 @@ func is_solveable() -> bool:
 			current_card_permutation[1].get_card(),
 			current_card_permutation[2].get_card()
 		   ):
-			print_debug("Solvable: true (%s, %s, %s)" % current_card_permutation)
-			return true
-	print_debug("Solvable: false")
-	return false
+			return current_card_permutation
+	return []
 
 func check_cards(card1: Dictionary, card2: Dictionary, card3: Dictionary) -> bool:
 	if card1.is_empty() || card2.is_empty() || card3.is_empty():
@@ -172,3 +179,7 @@ func _on_card_toggled(toggled_on: bool, source: BaseButton) -> void:
 			selected_cards.clear()
 			ensure_solvable()
 			count_cards()
+
+func show_hint() -> void:
+	for card in get_first_solution():
+		card.show_hint()

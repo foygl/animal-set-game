@@ -15,6 +15,7 @@ func _process(delta: float) -> void:
 func update_card(c: Dictionary):
 	disabled = true
 	visible = false
+	$Hint.visible = false
 	$Selected.visible = false
 	
 	if c == null || c.is_empty():
@@ -31,11 +32,20 @@ func get_card() -> Dictionary:
 	return card
 
 func _on_toggled(toggled_on: bool) -> void:
+	$Hint.visible = false
 	$Selected.visible = toggled_on
-
 
 func _on_card_update_timer_timeout() -> void:
 	disabled = false
 	visible = true
 	button_pressed = false
 	update_finished.emit()
+
+func show_hint() -> void:
+	$Hint.visible = true
+	$Selected.visible = false
+	button_pressed = false
+	$HintTimer.start()
+
+func _on_hint_timer_timeout() -> void:
+	$Hint.visible = false
