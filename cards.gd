@@ -1,5 +1,10 @@
 extends Node
 
+# A cap set is a mathematical structure describing a Set layout containing no set at all.
+# The largest number of cards that can be assembled without forming a set is 20
+var UNSOLVEABLE_MAX = 20
+# var UNSOLVABLE_EXAMPLE: Array[Dictionary] = [{'animal': 'bunny', 'pattern': 'hex', 'colour': 'green', 'number': 'three'}, {'animal': 'bunny', 'pattern': 'waves', 'colour': 'blue', 'number': 'two'}, {'animal': 'bunny', 'pattern': 'hex', 'colour': 'red', 'number': 'three'}, {'animal': 'bunny', 'pattern': 'hex', 'colour': 'green', 'number': 'one'}, {'animal': 'fish', 'pattern': 'waves', 'colour': 'green', 'number': 'three'}, {'animal': 'bunny', 'pattern': 'waves', 'colour': 'red', 'number': 'two'}, {'animal': 'bird', 'pattern': 'filled', 'colour': 'blue', 'number': 'one'}, {'animal': 'bunny', 'pattern': 'waves', 'colour': 'green', 'number': 'three'}, {'animal': 'bird', 'pattern': 'hex', 'colour': 'blue', 'number': 'three'}, {'animal': 'bird', 'pattern': 'hex', 'colour': 'blue', 'number': 'one'}, {'animal': 'fish', 'pattern': 'waves', 'colour': 'blue', 'number': 'two'}, {'animal': 'bird', 'pattern': 'waves', 'colour': 'red', 'number': 'three'}, {'animal': 'fish', 'pattern': 'hex', 'colour': 'green', 'number': 'one'}, {'animal': 'fish', 'pattern': 'filled', 'colour': 'red', 'number': 'one'}, {'animal': 'fish', 'pattern': 'waves', 'colour': 'red', 'number': 'three'}, {'animal': 'bunny', 'pattern': 'hex', 'colour': 'blue', 'number': 'one'}]
+
 var cards: Array[Dictionary]
 
 var current_cards: Array[TextureButton]
@@ -99,6 +104,25 @@ func ensure_solvable():
 			for card in current_cards:
 				if !card.get_card().is_empty():
 					cards.append(card.get_card())
+
+			# Check that a solution actually exists in the remaining cards if we've reached the threshold where there could theoretically be no solution
+			if cards.size() <= UNSOLVEABLE_MAX:
+				print_debug("Check remaining %d cards for any solution before shuffling" % cards.size())
+				var solution_exists = false
+				for i in range(cards.size() - 2):
+					for j in range(i + 1, cards.size() - 1):
+						for k in range(j + 1, cards.size()):
+							if check_cards(cards[i], cards[j], cards[k]):
+								solution_exists = true
+								break
+						if solution_exists: break
+					if solution_exists: break
+				if !solution_exists:
+					current_cards.clear() # Prevent double counting in final count
+					print_debug("Game over")
+					game_over.emit()
+					return
+
 			shuffling.emit()
 			deal_cards()
 
