@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME=set
+NAME=animal_set
 
 echo "Cache busting"
 
