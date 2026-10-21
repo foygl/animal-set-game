@@ -1,6 +1,6 @@
 # Animal Set
 
-![Animal set splash screen](/boot-splash.png)
+[![Animal set splash screen](/boot-splash.png)](https://foygl.github.io/animal-set-game/exported/web/animal_set.html)
 
 The game of [Set](https://en.wikipedia.org/wiki/Set_(card_game)), but with animal pictures!
 
@@ -10,7 +10,7 @@ Written very quickly in Godot. No bells or whistles.
 
 [Play the game!](https://foygl.github.io/animal-set-game/exported/web/animal_set.html)
 
-You can also find built binaries for multiple platforms in the latest release
+You can also find built binaries for multiple platforms in the [latest release](https://github.com/foygl/animal-set-game/releases/latest).
 
 ## Instructions
 
