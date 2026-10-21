@@ -3,4 +3,8 @@
 /android/
 
 .DS_Store
-/exported/
+/exported/android
+/exported/linux
+/exported/macos
+/exported/windows
+
